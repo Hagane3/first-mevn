@@ -1,18 +1,33 @@
-<script setup></script>
+<script setup>
+import { ref } from "vue";
+
+const email = ref("");
+const password = ref("");
+
+function sendLoginData() {
+  fetch("http://localhost:4000/register", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ email: email.value, password: password.value }),
+  });
+}
+</script>
 
 <template>
   <div class="page">
     <h1>REGISTER</h1>
-    <form action="">
+    <form @submit.prevent="sendLoginData">
       <div class="input_box">
         <label for="mail">Mail</label>
-        <input type="mail" id="mail" />
+        <input type="mail" id="mail" v-model="email" />
       </div>
       <div class="input_box">
         <label for="password">Password</label>
-        <input type="password" id="password" />
+        <input type="password" id="password" v-model="password" />
       </div>
-      <button>CREATE ACCOUNT</button>
+      <button>REGISTER</button>
     </form>
   </div>
 </template>
@@ -45,7 +60,7 @@ form {
 }
 
 button {
-  width: 50%;
+  width: 20%;
   margin: 0 auto;
   padding: 0.7em;
   background-color: lightcyan;
