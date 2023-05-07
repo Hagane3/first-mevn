@@ -1,16 +1,23 @@
 const express = require("express");
 const cors = require("cors");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
 
 const commentsRoutes = require("./routes/commentsRoutes");
 const authRoutes = require("./routes/authRoutes");
 
 const app = express();
-const port = 4000;
+dotenv.config();
 
 app.use(cors());
 app.use(express.json());
 
-app.listen(port, () => console.log(`App listening on port ${port}`));
+const dbURI = process.env.MONGO_KEY;
+
+mongoose
+  .connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then((result) => app.listen(4000))
+  .catch((err) => console.log(err));
 
 app.use(express.urlencoded({ extended: true }));
 
