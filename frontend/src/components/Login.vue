@@ -11,7 +11,17 @@ function sendLoginData() {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ email: email.value, password: password.value }),
-  });
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      if (data.success) {
+        console.log("Logged successfuly");
+      } else {
+        throw new Error(data.error);
+      }
+    })
+    .catch((err) => console.error(`ERROR: ${err.message}`));
 }
 </script>
 

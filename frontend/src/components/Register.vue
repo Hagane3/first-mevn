@@ -1,5 +1,7 @@
 <script setup>
 import { ref } from "vue";
+import { useRouter } from "vue-router";
+const router = useRouter();
 
 const email = ref("");
 const password = ref("");
@@ -11,7 +13,17 @@ function sendLoginData() {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ email: email.value, password: password.value }),
-  });
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.success) {
+        console.log("Registered successfuly");
+        router.push("/");
+      } else {
+        throw new Error(data.error);
+      }
+    })
+    .catch((err) => console.error(`ERROR: ${err.message}`));
 }
 </script>
 
