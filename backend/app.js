@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 
 const commentsRoutes = require("./routes/commentsRoutes");
+const authRoutes = require("./routes/authRoutes");
 
 const app = express();
 const port = 4000;
@@ -17,14 +18,5 @@ app.get("/", (req, res) => {
   res.send("<h1>Server is running</h1>");
 });
 
-app.post("/login", (req, res) => {
-  console.log("login: ", req.body);
-  res.json({ status: "ok" });
-});
-
-app.post("/register", (req, res) => {
-  console.log("register: ", req.body);
-  res.json({ status: "ok" });
-});
-
 app.use("/comments", commentsRoutes);
+app.use("/auth", authRoutes);

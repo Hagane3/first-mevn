@@ -5,7 +5,7 @@ const email = ref("");
 const password = ref("");
 
 function sendLoginData() {
-  fetch("http://localhost:4000/login", {
+  fetch("http://localhost:4000/auth/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
